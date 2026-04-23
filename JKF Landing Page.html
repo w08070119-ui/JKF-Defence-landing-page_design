@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JKF DEFENCE | Precision Defence Standard</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #070c17;
+  --bg1: #0a1120;
+  --bg2: #0d1528;
+  --blue: #0095d5;
+  --blue-dim: rgba(0,149,213,0.12);
+  --blue-glow: rgba(0,149,213,0.06);
+  --border: rgba(0,149,213,0.15);
+  --text-1: rgba(255,255,255,0.93);
+  --text-2: rgba(255,255,255,0.55);
+  --text-3: rgba(255,255,255,0.28);
+  --font: 'Space Grotesk', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text-1); overflow-x: hidden; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; opacity: 0.4; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scanline {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(120vh); }
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 0.15; transform: scale(1.08); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes gridScroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 60px; }
+}
+@keyframes borderGlow {
+  0%,100% { box-shadow: 0 0 12px rgba(0,149,213,0.2); }
+  50%      { box-shadow: 0 0 28px rgba(0,149,213,0.5); }
+}
+@keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  background: rgba(7,12,23,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,149,213,0.1);
+  transition: background 0.3s;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-badge {
+  background: var(--blue); padding: 3px 9px; border-radius: 5px;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.06em; color: #fff;
+}
+.nav-logo-text { font-size: 14px; font-weight: 700; color: var(--text-1); letter-spacing: 0.04em; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; color: var(--text-2);
+  text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--blue); }
+.nav-cta {
+  padding: 8px 20px; background: var(--blue); border: none; border-radius: 7px;
+  font-size: 12px; font-weight: 700; color: #fff; cursor: pointer;
+  letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden; padding: 64px 0 0;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,149,213,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,149,213,0.055) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridScroll 8s linear infinite;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+.hero-glow {
+  position: absolute; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,149,213,0.12) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  animation: pulse 6s ease-in-out infinite;
+}
+.hero-scan {
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,149,213,0.4), transparent);
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative; z-index: 2; max-width: 1280px; margin: 0 auto;
+  padding: 0 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 20px; height: 1px; background: var(--blue);
+}
+.hero-title {
+  font-size: clamp(36px, 4vw, 58px); font-weight: 700; line-height: 1.08;
+  letter-spacing: -0.02em; margin-bottom: 22px;
+}
+.hero-title .accent { color: var(--blue); }
+.hero-desc {
+  font-size: 15px; line-height: 1.75; color: var(--text-2); max-width: 460px;
+  margin-bottom: 36px;
+}
+.hero-actions {
+  display: flex; align-items: center; gap: 14px;
+}
+.btn-primary {
+  padding: 13px 28px; background: var(--blue); border: none; border-radius: 9px;
+  font-size: 13px; font-weight: 700; color: #fff; cursor: pointer;
+  letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: all 0.2s; font-family: var(--font);
+}
+.btn-primary:hover { opacity: 0.87; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,149,213,0.35); }
+.btn-secondary {
+  padding: 13px 24px; background: transparent;
+  border: 1px solid rgba(0,149,213,0.35); border-radius: 9px;
+  font-size: 13px; font-weight: 600; color: var(--text-2); cursor: pointer;
+  letter-spacing: 0.04em; text-decoration: none; transition: all 0.2s; font-family: var(--font);
+}
+.btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+
+/* Hero visual */
+.hero-visual {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.hero-visual-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(0,149,213,0.15);
+}
+.hero-visual-card {
+  position: relative; z-index: 2;
+  width: 360px; height: 440px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,149,213,0.04) 100%);
+  border: 1px solid rgba(0,149,213,0.25);
+  border-radius: 20px; backdrop-filter: blur(12px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0; animation: float 5s ease-in-out infinite;
+  box-shadow: 0 0 0 1px rgba(0,149,213,0.1), 0 32px 80px rgba(0,0,0,0.5), 0 0 60px rgba(0,149,213,0.08);
+}
+.hero-screw-wrap {
+  filter: drop-shadow(0 0 24px rgba(0,149,213,0.3)) drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+}
+.hero-part-label {
+  margin-top: 20px; text-align: center;
+}
+.hero-part-id {
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  color: var(--blue); letter-spacing: 0.06em;
+}
+.hero-part-sub {
+  font-size: 10px; color: var(--text-3); margin-top: 4px; letter-spacing: 0.08em;
+}
+/* Corner brackets */
+.bracket { position: absolute; width: 18px; height: 18px; }
+.bracket-tl { top: 12px; left: 12px; border-top: 1.5px solid rgba(0,149,213,0.6); border-left: 1.5px solid rgba(0,149,213,0.6); }
+.bracket-tr { top: 12px; right: 12px; border-top: 1.5px solid rgba(0,149,213,0.6); border-right: 1.5px solid rgba(0,149,213,0.6); }
+.bracket-bl { bottom: 12px; left: 12px; border-bottom: 1.5px solid rgba(0,149,213,0.6); border-left: 1.5px solid rgba(0,149,213,0.6); }
+.bracket-br { bottom: 12px; right: 12px; border-bottom: 1.5px solid rgba(0,149,213,0.6); border-right: 1.5px solid rgba(0,149,213,0.6); }
+
+/* ─── STATS ─── */
+.stats-bar {
+  background: linear-gradient(90deg, rgba(0,149,213,0.08), rgba(0,149,213,0.04), rgba(0,149,213,0.08));
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 36px 0;
+}
+.stats-inner { max-width: 1280px; margin: 0 auto; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; }
+.stat-item { text-align: center; }
+.stat-value { font-size: 40px; font-weight: 700; color: var(--blue); letter-spacing: -0.03em; font-family: var(--mono); line-height: 1; }
+.stat-label { font-size: 11px; color: var(--text-3); margin-top: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
+.stat-divider { width: 1px; height: 48px; background: var(--border); }
+
+/* ─── SECTIONS COMMON ─── */
+section { padding: 100px 0; }
+.section-inner { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  color: var(--blue); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px;
+}
+.section-label::before { content: ''; display: block; width: 16px; height: 1px; background: var(--blue); }
+.section-title {
+  font-size: clamp(28px, 3vw, 42px); font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 16px;
+}
+.section-sub { font-size: 15px; color: var(--text-2); line-height: 1.7; max-width: 520px; }
+
+/* ─── ABOUT ─── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-visual { position: relative; }
+.about-timeline { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+.timeline-item {
+  display: flex; gap: 16px; padding: 16px 0;
+  border-top: 1px solid rgba(0,149,213,0.1);
+  transition: background 0.2s;
+}
+.timeline-item:first-child { border-top: none; }
+.timeline-year {
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  color: var(--blue); min-width: 46px; padding-top: 2px;
+}
+.timeline-content { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+.about-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(0,149,213,0.08); border: 1px solid rgba(0,149,213,0.2);
+  border-radius: 6px; padding: 5px 10px; font-family: var(--mono);
+  font-size: 10px; color: var(--blue); letter-spacing: 0.08em; margin-bottom: 8px;
+}
+
+/* ─── CATEGORIES ─── */
+.cat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 56px; }
+.cat-card {
+  position: relative; overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(0,149,213,0.03));
+  border: 1px solid rgba(0,149,213,0.15);
+  border-radius: 16px; padding: 32px 24px;
+  cursor: pointer; transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.cat-card:hover { border-color: rgba(0,149,213,0.4); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,149,213,0.1); }
+.cat-card:hover::before { opacity: 1; }
+.cat-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(0,149,213,0.1); border: 1px solid rgba(0,149,213,0.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.cat-name { font-size: 16px; font-weight: 700; }
+.cat-sub { font-size: 12px; color: var(--text-3); line-height: 1.6; }
+.cat-tag {
+  margin-top: auto; font-family: var(--mono); font-size: 9px; color: var(--blue);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* ─── QUALITY ─── */
+.quality-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 56px; }
+.quality-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(0,149,213,0.12);
+  border-radius: 14px; padding: 28px 24px;
+  transition: border-color 0.2s;
+}
+.quality-card:hover { border-color: rgba(0,149,213,0.35); }
+.quality-num { font-family: var(--mono); font-size: 11px; color: var(--text-3); margin-bottom: 16px; letter-spacing: 0.1em; }
+.quality-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+.quality-desc { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+.quality-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 16px; font-size: 10px; color: var(--blue);
+  font-family: var(--mono); letter-spacing: 0.08em;
+}
+
+/* ─── CATALOG PREVIEW ─── */
+.catalog-bg {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg1) 30%, var(--bg1) 70%, var(--bg) 100%);
+}
+.catalog-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+.catalog-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.catalog-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,149,213,0.12);
+  border-radius: 12px; padding: 20px 18px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: all 0.2s; cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.catalog-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.catalog-card:hover { border-color: rgba(0,149,213,0.35); transform: translateY(-2px); }
+.catalog-card:hover::after { opacity: 1; }
+.catalog-part-id { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--blue); letter-spacing: 0.04em; }
+.catalog-part-name { font-size: 12px; color: var(--text-2); }
+.catalog-part-count { font-size: 10px; color: var(--text-3); font-family: var(--mono); margin-top: 4px; }
+.catalog-part-arrow {
+  position: absolute; top: 18px; right: 16px;
+  opacity: 0; transition: opacity 0.2s, transform 0.2s; color: var(--blue);
+}
+.catalog-card:hover .catalog-part-arrow { opacity: 1; transform: translateX(2px); }
+.catalog-cta { text-align: center; margin-top: 40px; }
+.catalog-count { font-family: var(--mono); font-size: 11px; color: var(--text-3); margin-top: 12px; letter-spacing: 0.08em; }
+
+/* ─── CONTACT ─── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-label { font-size: 10px; font-weight: 600; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+.form-input {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(0,149,213,0.15);
+  border-radius: 8px; padding: 11px 14px; color: var(--text-1);
+  font-size: 13px; font-family: var(--font); outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus { border-color: rgba(0,149,213,0.5); }
+.form-input::placeholder { color: var(--text-3); }
+textarea.form-input { min-height: 100px; resize: vertical; }
+.form-submit {
+  width: 100%; padding: 13px; background: var(--blue); border: none; border-radius: 9px;
+  font-size: 13px; font-weight: 700; color: #fff; cursor: pointer;
+  font-family: var(--font); letter-spacing: 0.04em;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.form-submit:hover { opacity: 0.87; transform: translateY(-1px); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid rgba(0,149,213,0.1);
+  padding: 36px 0;
+}
+.footer-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-copy { font-size: 11px; color: var(--text-3); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 11px; color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--blue); }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-badge">JKF</span>
+    <span class="nav-logo-text">DEFENCE</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#categories">Categories</a>
+    <a href="#quality">Quality</a>
+    <a href="#catalog">Catalog</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#" class="nav-cta">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+    Digital Vault 접속
+  </a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-scan"></div>
+
+  <div class="hero-inner">
+    <!-- Left -->
+    <div>
+      <div class="hero-eyebrow">Precision Defence Standard</div>
+      <h1 class="hero-title">
+        방산·우주항공<br>
+        <span class="accent">초정밀 화스너</span><br>
+        디지털 플랫폼
+      </h1>
+      <p class="hero-desc">
+        53년 기술력의 정점. 방산업체 60개사가 신뢰하는
+        JKF DEFENCE의 디지털 카탈로그 시스템으로
+        설계부터 조달까지 완전히 새로운 경험을 제공합니다.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5,3 19,12 5,21"/></svg>
+          Digital Vault 진입
+        </a>
+        <a href="#about" class="btn-secondary">회사 소개</a>
+      </div>
+    </div>
+
+    <!-- Right: Floating Card -->
+    <div class="hero-visual">
+      <div class="hero-visual-ring" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+      <div class="hero-visual-ring" style="width:380px;height:380px;top:50%;left:50%;transform:translate(-50%,-50%);border-color:rgba(0,149,213,0.08)"></div>
+
+      <div class="hero-visual-card">
+        <div class="bracket bracket-tl"></div>
+        <div class="bracket bracket-tr"></div>
+        <div class="bracket bracket-bl"></div>
+        <div class="bracket bracket-br"></div>
+
+        <!-- Screw SVG -->
+        <div class="hero-screw-wrap">
+          <svg viewBox="0 0 200 320" width="130" height="220">
+            <defs>
+              <radialGradient id="hg" cx="40%" cy="30%">
+                <stop offset="0%" stop-color="#d8e8f4"/>
+                <stop offset="40%" stop-color="#9ab0c4"/>
+                <stop offset="100%" stop-color="#4a6070"/>
+              </radialGradient>
+              <radialGradient id="sg" cx="30%" cy="50%">
+                <stop offset="0%" stop-color="#c0d0dc"/>
+                <stop offset="60%" stop-color="#7090a4"/>
+                <stop offset="100%" stop-color="#3a4a58"/>
+              </radialGradient>
+              <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#4a6878"/>
+                <stop offset="50%" stop-color="#b8d4e4"/>
+                <stop offset="100%" stop-color="#3a5060"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="100" cy="74" rx="58" ry="13" fill="#2a3840" opacity="0.4"/>
+            <path d="M42,74 Q42,32 100,30 Q158,32 158,74 Q158,86 100,91 Q42,86 42,74Z" fill="url(#hg)"/>
+            <rect x="94" y="34" width="12" height="40" rx="3" fill="rgba(20,30,40,0.8)"/>
+            <rect x="76" y="52" width="48" height="10" rx="3" fill="rgba(20,30,40,0.8)"/>
+            <rect x="80" y="89" width="40" height="150" rx="4" fill="url(#sg)"/>
+            <!-- threads -->
+            <ellipse cx="100" cy="100" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="114" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="128" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="142" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="156" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="170" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="184" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="198" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="212" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <ellipse cx="100" cy="226" rx="26" ry="5" fill="url(#tg)" opacity="0.9"/>
+            <path d="M80,239 Q100,258 120,239Z" fill="url(#sg)"/>
+            <ellipse cx="87" cy="54" rx="9" ry="5" fill="rgba(255,255,255,0.22)" transform="rotate(-18,87,54)"/>
+          </svg>
+        </div>
+
+        <div class="hero-part-label">
+          <div class="hero-part-id">KSB1023-PA-M1.6a3-A2-70</div>
+          <div class="hero-part-sub">Pan Head · A2-70 · M1.6 × 3mm</div>
+        </div>
+
+        <!-- Mini spec pills -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:14px;padding:0 16px">
+          <span style="font-family:var(--mono);font-size:9px;background:rgba(0,149,213,0.12);border:1px solid rgba(0,149,213,0.25);color:var(--blue);border-radius:4px;padding:3px 8px">MTR ✓</span>
+          <span style="font-family:var(--mono);font-size:9px;background:rgba(0,149,213,0.12);border:1px solid rgba(0,149,213,0.25);color:var(--blue);border-radius:4px;padding:3px 8px">3D STEP ✓</span>
+          <span style="font-family:var(--mono);font-size:9px;background:rgba(0,149,213,0.12);border:1px solid rgba(0,149,213,0.25);color:var(--blue);border-radius:4px;padding:3px 8px">FSC S305</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scroll indicator -->
+  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0.4">
+    <span style="font-size:9px;letter-spacing:0.12em;color:var(--text-3);text-transform:uppercase">Scroll</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="var(--text-3)" stroke-width="1.5" stroke-linecap="round">
+      <rect x="1" y="1" width="12" height="18" rx="6"/>
+      <line x1="7" y1="5" x2="7" y2="9" style="animation:float 1.5s ease-in-out infinite"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-value" data-target="53">0</div>
+      <div class="stat-label">년 기술 역사</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-value" data-target="60">0</div>
+      <div class="stat-label">개사 방산업체 납품</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-value" data-target="600">0</div>
+      <div class="stat-label">+ 등록 정밀 파트</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-value" data-target="100">0</div>
+      <div class="stat-label">% 완전 추적성 보장</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="section-label">About JungKum</div>
+        <h2 class="section-title">53년이 입증하는<br>화스너 기술의 정점</h2>
+        <p class="section-sub">
+          정금화스너공업(주)는 항공, 인공위성, 유도무기 체계에
+          사용되는 초고신뢰성 화스너 설계·제조에 특화된 기업입니다.
+          방산 규격의 가장 엄격한 요구조건을 충족합니다.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:28px">
+          <span class="about-badge">🏭 1972년 창립</span>
+          <span class="about-badge">✈️ 항공우주 인증</span>
+          <span class="about-badge">🛡 방위산업체 등록</span>
+          <span class="about-badge">📋 KSB / MIL-SPEC</span>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--text-3);text-transform:uppercase;margin-bottom:12px">연혁</div>
+        <div class="about-timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">1972</div>
+            <div class="timeline-content">정금화스너공업(주) 창립 — 정밀 체결류 전문 제조 시작</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">1990s</div>
+            <div class="timeline-content">방위산업체 공식 등록 — 군수 화스너 공급 본격화</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2000s</div>
+            <div class="timeline-content">항공·우주발사체용 초정밀 화스너 개발 및 양산</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2020s</div>
+            <div class="timeline-content">JKF DEFENCE Digital Vault 플랫폼 구축 — 디지털 전환</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CATEGORIES ─── -->
+<section id="categories" style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-title">적용 분야</h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal reveal-delay-1">
+        <div class="cat-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095d5" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="cat-name">Defense</div>
+        <div class="cat-sub">기동·화력·상륙 체계용<br>초내구성 화스너 공급</div>
+        <div class="cat-tag">→ K2 전차 / K9 자주포 적용</div>
+      </div>
+      <div class="cat-card reveal reveal-delay-2">
+        <div class="cat-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095d5" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2H4.18A2 2 0 0 1 2 19.92V16l5-5 4 4 5-7z"/></svg>
+        </div>
+        <div class="cat-name">Aerospace</div>
+        <div class="cat-sub">항공기·우주발사체용<br>고신뢰성 티타늄 화스너</div>
+        <div class="cat-tag">→ MIL-SPEC / NAS 규격 대응</div>
+      </div>
+      <div class="cat-card reveal reveal-delay-3">
+        <div class="cat-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095d5" stroke-width="1.8" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0M3 12h2m14 0h2M12 3v2m0 14v2"/></svg>
+        </div>
+        <div class="cat-name">Navy</div>
+        <div class="cat-sub">특수 함정·해양 환경<br>내식성 특화 화스너</div>
+        <div class="cat-tag">→ STS A4 / 해수 내식 설계</div>
+      </div>
+      <div class="cat-card reveal reveal-delay-4">
+        <div class="cat-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095d5" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="cat-name">Satellite</div>
+        <div class="cat-sub">위성·궤도시스템용<br>극한환경 초경량 화스너</div>
+        <div class="cat-tag">→ 우주 방사선 환경 대응</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── QUALITY ─── -->
+<section id="quality">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:56px">
+      <div class="reveal">
+        <div class="section-label">Trusted Quality</div>
+        <h2 class="section-title">검증된 품질과<br>무결점 데이터</h2>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="section-sub">
+          방위산업의 절대적인 신뢰성 요구를 충족하는
+          JKF DEFENCE의 품질 시스템. 모든 파트에 대한
+          완전한 추적성과 인증 데이터를 제공합니다.
+        </p>
+      </div>
+    </div>
+    <div class="quality-grid">
+      <div class="quality-card reveal reveal-delay-1">
+        <div class="quality-num">01</div>
+        <div class="quality-title">Military Grade Quality</div>
+        <div class="quality-desc">방위산업의 높은 요구조건을 충족하는 고품질 화스너. 철저한 테스트와 규격 준수로 무결점을 보장합니다.</div>
+        <div class="quality-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20,6 9,17 4,12"/></svg>
+          KSB / MIL-SPEC / NAS 규격
+        </div>
+      </div>
+      <div class="quality-card reveal reveal-delay-2">
+        <div class="quality-num">02</div>
+        <div class="quality-title">Full Traceability (MTR)</div>
+        <div class="quality-desc">모든 제품에 대한 재질 성적서(MTR) 및 공정 추적성 문서 제공. 정확한 데이터 관리로 무기 체계 안정성 보장.</div>
+        <div class="quality-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20,6 9,17 4,12"/></svg>
+          100% 로트 추적 가능
+        </div>
+      </div>
+      <div class="quality-card reveal reveal-delay-3">
+        <div class="quality-num">03</div>
+        <div class="quality-title">Complete CAD Vault</div>
+        <div class="quality-desc">2D PDF 및 3D STEP/GLB 모델을 즉시 제공. 설계 시간을 단축하고 디지털 표준을 선도하는 기술력.</div>
+        <div class="quality-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20,6 9,17 4,12"/></svg>
+          STEP / GLB / PDF 즉시 다운로드
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CATALOG PREVIEW ─── -->
+<section id="catalog" class="catalog-bg" style="border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="catalog-header reveal">
+      <div>
+        <div class="section-label">Digital Catalog</div>
+        <h2 class="section-title">부품 카탈로그 미리보기</h2>
+      </div>
+      <a href="#" class="btn-primary" style="white-space:nowrap">
+        전체 목록 보기
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </a>
+    </div>
+
+    <div class="catalog-grid">
+      <div class="catalog-card reveal reveal-delay-1" onclick="location.href='#'">
+        <div class="catalog-part-id">KSB1023-PA</div>
+        <div class="catalog-part-name">냄버머리 소형 나사</div>
+        <div class="catalog-part-count">12 variants</div>
+        <div class="catalog-part-arrow">→</div>
+      </div>
+      <div class="catalog-card reveal reveal-delay-1" onclick="location.href='#'">
+        <div class="catalog-part-id">KSB1023-FL</div>
+        <div class="catalog-part-name">플랜지 헤드 나사</div>
+        <div class="catalog-part-count">8 variants</div>
+        <div class="catalog-part-arrow">→</div>
+      </div>
+      <div class="catalog-card reveal reveal-delay-2" onclick="location.href='#'">
+        <div class="catalog-part-id">KSB1002</div>
+        <div class="catalog-part-name">육각 볼트</div>
+        <div class="catalog-part-count">24 variants</div>
+        <div class="catalog-part-arrow">→</div>
+      </div>
+      <div class="catalog-card reveal reveal-delay-2" onclick="location.href='#'">
+        <div class="catalog-part-id">KSB1003</div>
+        <div class="catalog-part-name">육각 너트</div>
+        <div class="catalog-part-count">16 variants</div>
+        <div class="catalog-part-arrow">→</div>
+      </div>
+      <div class="catalog-card reveal reveal-delay-3" onclick="location.href='#'">
+        <div class="catalog-part-id">KSB1324</div>
+        <div class="catalog-part-name">스프링 와셔</div>
+        <div class="catalog-part-count">9 variants</div>
+        <div class="catalog-part-arrow">→</div>
+      </div>
+      <div class="catalog-card reveal reveal-delay-3" onclick="location.href='#'">
+        <div class="catalog-part-id">KSB1326</div>
+        <div class="catalog-part-name">평 와셔</div>
+        <div class="catalog-part-count">11 variants</div>
+        <div class="catalog-part-arrow">→</div>
+      </div>
+      <div class="catalog-card reveal reveal-delay-4" onclick="location.href='#'">
+        <div class="catalog-part-id">JK-SPS-PA</div>
+        <div class="catalog-part-name">특수 셀프태핑 나사</div>
+        <div class="catalog-part-count">18 variants</div>
+        <div class="catalog-part-arrow">→</div>
+      </div>
+      <div class="catalog-card reveal reveal-delay-4" onclick="location.href='#'" style="border-style:dashed;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;min-height:90px">
+        <div style="font-size:24px;color:rgba(0,149,213,0.3);font-weight:300">+</div>
+        <div style="font-size:11px;color:var(--text-3);font-family:var(--mono);letter-spacing:0.06em">600+ 전체 파트</div>
+      </div>
+    </div>
+
+    <div class="catalog-cta reveal">
+      <a href="#" class="btn-primary" style="display:inline-flex">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Digital Vault 로그인 후 전체 데이터 접근
+      </a>
+      <div class="catalog-count">로그인 후 600개 이상의 정밀 부품 데이터, 3D 모델, MTR 문서에 접근 가능합니다</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact" style="border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">프로젝트<br>사양 문의</h2>
+        <p class="section-sub" style="margin-top:16px">
+          무기체계 및 우주항공 프로젝트의 사양·견적 요청.
+          전문 엔지니어링 팀이 직접 검토하고 빠르게 응답합니다.
+        </p>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.5 19.36 19.36 0 0 1 1.64 2.11 2 2 0 0 1 3.62.01H6.7a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span style="font-size:13px;color:var(--text-2)">방산 전문 상담 직통 연결</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            <span style="font-size:13px;color:var(--text-2)">영업일 기준 24시간 내 회신</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+            <span style="font-size:13px;color:var(--text-2)">규격서·도면 첨부 문의 가능</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">이름 (Name)</label>
+            <input type="text" class="form-input" placeholder="홍길동">
+          </div>
+          <div class="form-group">
+            <label class="form-label">회사/소속 (Company)</label>
+            <input type="text" class="form-input" placeholder="(주) 방산업체">
+          </div>
+          <div class="form-group">
+            <label class="form-label">이메일 (Email)</label>
+            <input type="email" class="form-input" placeholder="contact@company.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">문의 내용 (Request Details)</label>
+            <textarea class="form-input" placeholder="프로젝트 규격, 수량, 납기 등을 자유롭게 입력해 주세요."></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9 22,2"/></svg>
+            Send Request — 문의 보내기
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="nav-logo-badge">JKF</span>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--text-2)">DEFENCE Business</div>
+        <div class="footer-copy" style="margin-top:2px">© 2026 JUNGKUM Fastener Industrial Co., Ltd. All Rights Reserved.</div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="http://www.jungkum.com" target="_blank">공식 홈페이지</a>
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#contact">문의</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── COUNTER ───
+const counters = document.querySelectorAll('.stat-value[data-target]');
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.target);
+    const duration = 1600;
+    const start = performance.now();
+    const update = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(ease * target);
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+    counterObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+// ─── NAV SCROLL ───
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.background =
+    window.scrollY > 20 ? 'rgba(7,12,23,0.95)' : 'rgba(7,12,23,0.85)';
+});
+
+// ─── FORM ───
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ 전송 완료 — 빠른 시일 내 회신드리겠습니다';
+  btn.style.background = '#047857';
+  btn.disabled = true;
+}
+</script>
+</body>
+</html>
