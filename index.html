@@ -20,7 +20,7 @@
   <text x="60" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#0a1628">JKF DEFENCE</text>
 </svg>
 </template>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Archivo:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -89,7 +89,16 @@ nav {
   border-bottom: 1px solid rgba(0,80,160,0.08);
   transition: background 0.3s;
 }
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo-divider {
+  width: 1px; height: 22px;
+  background: linear-gradient(to bottom, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent);
+}
+.nav-logo-wordmark-img {
+  height: 42px; width: auto;
+  object-fit: contain;
+  display: block;
+}
 .nav-logo-badge {
   background: var(--blue); padding: 3px 9px; border-radius: 5px;
   font-size: 13px; font-weight: 800; letter-spacing: 0.06em; color: #fff;
@@ -162,6 +171,39 @@ nav {
 }
 .hero-actions {
   display: flex; align-items: center; gap: 14px;
+}
+.hero-slogan {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin: -18px 0 36px;
+  padding: 10px 18px 10px 16px;
+  background: linear-gradient(90deg, rgba(0,149,213,0.10), rgba(0,149,213,0.02));
+  border-left: 2px solid var(--accent);
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--text-1);
+  text-transform: uppercase;
+}
+.hero-slogan .slogan-mark {
+  color: var(--accent);
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.7;
+}
+.hero-slogan .slogan-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-slogan .slogan-sep {
+  color: var(--accent);
+  font-weight: 400;
+  font-size: 15px;
+  opacity: 0.6;
 }
 .btn-primary {
   padding: 13px 28px; background: var(--blue); border: none; border-radius: 9px;
@@ -420,6 +462,25 @@ section { padding: 100px 0; }
 .form-input:focus { border-color: rgba(0,149,213,0.5); }
 .form-input::placeholder { color: var(--text-3); }
 textarea.form-input { min-height: 100px; resize: vertical; }
+.form-file {
+  position: relative;
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px dashed rgba(0,149,213,0.28);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text-3);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  font-family: var(--mono);
+}
+.form-file:hover { border-color: rgba(0,149,213,0.55); background: rgba(0,149,213,0.04); color: var(--text-2); }
+.form-file input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.form-file-icon { color: var(--accent); display: flex; }
+.form-file-text { flex: 1; letter-spacing: 0.02em; }
+.form-file-hint { font-size: 10px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+.form-file.has-file { border-style: solid; border-color: rgba(0,149,213,0.45); color: var(--text-1); }
 .form-submit {
   width: 100%; padding: 13px; background: var(--blue); border: none; border-radius: 9px;
   font-size: 13px; font-weight: 700; color: #fff; cursor: pointer;
@@ -450,10 +511,12 @@ footer {
 <nav id="nav">
   <a href="#" class="nav-logo">
     <img src="uploads/정금화스너_로고.png" alt="JUNGKUM FASTENER" style="height:30px;width:auto;object-fit:contain;">
+    <div class="nav-logo-divider"></div>
+    <img src="uploads/wordmark-skyblue.png" alt="JKF DEFENCE" class="nav-logo-wordmark-img">
   </a>
   <div class="nav-links">
     <a href="#about">About</a>
-    <a href="#categories">Categories</a>
+    <a href="#categories">Application</a>
     <a href="#quality">Quality</a>
     <a href="#catalog">Catalog</a>
     <a href="#contact">Contact</a>
@@ -476,12 +539,15 @@ footer {
       <div class="hero-eyebrow">Precision Defence Standard</div>
       <h1 class="hero-title">
         방산·우주항공<br>
-        <span class="accent">초정밀 화스너</span><br>
+        <span class="accent">초정밀 체결류</span><br>
         디지털 플랫폼
       </h1>
       <p class="hero-desc">
-        53년 기술력의 정점. 방산업체 60개사가 신뢰하는<br>JKF DEFENCE의 디지털 카탈로그 시스템으로 설계부터 조달까지 완전히 새로운 경험을 제공합니다.
+        53년 축적된 정밀 체결 기술을 기반으로, <strong style="color:var(--text-1);font-weight:600">KS 규격 및 사내 엔지니어링 표준</strong>에 준거한 3D·2D CAD 데이터와 <strong style="color:var(--text-1);font-weight:600">국방군수목록(NSN) 연계 데이터</strong>를 함께 제공합니다. 방산업체 설계·조달 엔지니어에게 검증된 정밀 데이터를 제공함으로써 개발 주기 단축 및 업무 편의를 제공합니다.
       </p>
+      <div class="hero-slogan">
+        <span class="slogan-text">Zero Risk<span class="slogan-sep">·</span>Zero Stress</span>
+      </div>
       <div class="hero-actions">
         <a href="#" class="btn-primary">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5,3 19,12 5,21"/></svg>
@@ -618,11 +684,11 @@ footer {
     <div class="about-grid">
       <div class="reveal">
         <div class="section-label">About 정금화스너공업(주)</div>
-        <h2 class="section-title">53년이 입증하는<br>화스너 기술의 정점</h2>
+        <h2 class="section-title">53년이 입증하는<br>체결류 기술의 정점</h2>
         <p class="section-sub">
           정금화스너공업(주)는 항공, 인공위성, 유도무기 체계에
-          사용되는 초고신뢰성 화스너 설계·제조에 특화된 기업입니다.
-          방산 규격의 가장 엄격한 요구조건을 충족합니다.
+          사용되는 초고신뢰성 체결류 설계·제조에 특화된 기업입니다.
+          방산사업분야에서 요구하는 완벽한 문서 추적성 데이터를 ERP·MES를 통하여 관리·제공합니다.
         </p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:28px">
           <span class="about-badge">🏭 1973년 창립</span>
@@ -690,7 +756,7 @@ footer {
 <section id="categories" style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
   <div class="section-inner">
     <div class="reveal">
-      <div class="section-label">Categories</div>
+      <div class="section-label">Application</div>
       <h2 class="section-title">적용 분야</h2>
     </div>
     <div class="cat-grid">
@@ -719,7 +785,7 @@ footer {
         <div class="cat-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div class="cat-name"><span class="cat-dot"></span>Defense</div>
+        <div class="cat-name"><span class="cat-dot"></span>Defense Systems</div>
         <div class="cat-sub">기동·화력·상륙 체계용<br>초내구성 체결류 공급</div>
       </div>
 
@@ -775,7 +841,7 @@ footer {
         <div class="cat-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M19.4 11H4.6a2 2 0 0 0-1.9 2.6l1.5 4A2 2 0 0 0 6.1 19h11.8a2 2 0 0 0 1.9-1.4l1.5-4a2 2 0 0 0-1.9-2.6z"/><path d="M12 11V4"/><path d="M8 5h8"/></svg>
         </div>
-        <div class="cat-name"><span class="cat-dot"></span>Navy</div>
+        <div class="cat-name"><span class="cat-dot"></span>Naval Systems</div>
         <div class="cat-sub">특수 함정·해양 환경<br>내식성 특화(A4) 체결류</div>
       </div>
 
@@ -972,15 +1038,15 @@ footer {
     <div class="contact-grid">
       <div class="reveal">
         <div class="section-label">Contact</div>
-        <h2 class="section-title">프로젝트<br>사양 문의</h2>
+        <h2 class="section-title">제품<br>사양 문의</h2>
         <p class="section-sub" style="margin-top:16px">
-          무기체계 및 우주항공 프로젝트의 사양·견적 요청.
+          각종 방산 프로젝트의 사양·견적 요청.
           전문 엔지니어링 팀이 직접 검토하고 빠르게 응답합니다.
         </p>
         <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">
           <div style="display:flex;align-items:center;gap:10px">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.5 19.36 19.36 0 0 1 1.64 2.11 2 2 0 0 1 3.62.01H6.7a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <span style="font-size:13px;color:var(--text-2)">방산 전문 상담 직통 연결</span>
+            <span style="font-size:13px;color:var(--text-2)">방산 체결류 전문 담당자와 연결</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
@@ -1010,6 +1076,36 @@ footer {
             <label class="form-label">문의 내용 (Request Details)</label>
             <textarea class="form-input" placeholder="프로젝트 규격, 수량, 납기 등을 자유롭게 입력해 주세요."></textarea>
           </div>
+          <div class="form-group">
+            <label class="form-label">파일 첨부 (Attachment)</label>
+            <label class="form-file" id="formFile">
+              <span class="form-file-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 17.98 8.83l-8.58 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </span>
+              <span class="form-file-text" id="formFileText">규격서·도면·도면번호 등 첨부 가능</span>
+              <span class="form-file-hint">PDF · DWG · STEP · JPG</span>
+              <input type="file" id="formFileInput" multiple accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.iges,.jpg,.jpeg,.png,.zip,.xlsx,.docx">
+            </label>
+            <script>
+              (function(){
+                var inp = document.getElementById('formFileInput');
+                var box = document.getElementById('formFile');
+                var txt = document.getElementById('formFileText');
+                if(!inp) return;
+                inp.addEventListener('change', function(){
+                  var files = inp.files;
+                  if(files && files.length){
+                    box.classList.add('has-file');
+                    if(files.length === 1){ txt.textContent = files[0].name; }
+                    else { txt.textContent = files[0].name + ' 외 ' + (files.length - 1) + '개 파일'; }
+                  } else {
+                    box.classList.remove('has-file');
+                    txt.textContent = '규격서·도면·도면번호 등 첨부 가능';
+                  }
+                });
+              })();
+            </script>
+          </div>
           <button type="submit" class="form-submit">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9 22,2"/></svg>
             Send Request — 문의 보내기
@@ -1026,7 +1122,7 @@ footer {
     <div style="display:flex;align-items:center;gap:10px">
       <img src="uploads/정금화스너_로고.png" alt="JUNGKUM FASTENER" style="height:24px;width:auto;object-fit:contain;">
       <div>
-        <div style="font-size:11px;font-weight:700;color:var(--text-2)">DEFENCE Business</div>
+        <div style="font-size:11px;font-weight:700;color:var(--text-2)"><img src="uploads/wordmark-skyblue.png" alt="JKF DEFENCE" style="height:16px;width:auto;object-fit:contain;display:block;"></div>
         <div class="footer-copy" style="margin-top:2px">© 2026 JUNGKUM Fastener Industrial Co., Ltd. All Rights Reserved.</div>
       </div>
     </div>
