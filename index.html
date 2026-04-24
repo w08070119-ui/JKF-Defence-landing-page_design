@@ -1060,7 +1060,15 @@ footer {
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <a href="/cdn-cgi/l/email-protection#45212023202b2620052f302b222e30286b262a28" style="font-size:13px;color:var(--text-2);text-decoration:none"><span style="font-family:var(--mono);color:var(--accent);font-weight:600;letter-spacing:0.02em"><span class="__cf_email__" data-cfemail="72161714171c11173218071c1519071f5c111d1f">[email&#160;protected]</span></span></a>
+            <a id="jkfContactEmail" href="#" style="font-size:13px;color:var(--text-2);text-decoration:none"><span style="font-family:var(--mono);color:var(--accent);font-weight:600;letter-spacing:0.02em">defence<span>&#64;</span>jungkum.com</span></a>
+            <script>
+              (function(){
+                var a = document.getElementById('jkfContactEmail');
+                if(!a) return;
+                var u = 'defence', d = 'jungkum.com';
+                a.setAttribute('href', 'mailto:' + u + String.fromCharCode(64) + d);
+              })();
+            </script>
           </div>
         </div>
       </div>
@@ -1092,7 +1100,7 @@ footer {
               <span class="form-file-hint">PDF · DWG · STEP · JPG</span>
               <input type="file" id="formFileInput" multiple accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.iges,.jpg,.jpeg,.png,.zip,.xlsx,.docx">
             </label>
-            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+            <script>
               (function(){
                 var inp = document.getElementById('formFileInput');
                 var box = document.getElementById('formFile');
