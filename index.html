@@ -264,13 +264,13 @@ nav {
 .stats-bar {
   background: linear-gradient(90deg, rgba(0,149,213,0.08), rgba(0,149,213,0.04), rgba(0,149,213,0.08));
   border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  padding: 36px 0;
+  padding: 18px 0;
 }
 .stats-inner { max-width: 1280px; margin: 0 auto; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; }
 .stat-item { text-align: center; }
-.stat-value { font-size: 40px; font-weight: 700; color: var(--blue); letter-spacing: -0.03em; font-family: var(--mono); line-height: 1; }
-.stat-label { font-size: 11px; color: var(--text-3); margin-top: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
-.stat-divider { width: 1px; height: 48px; background: var(--border); }
+.stat-value { font-size: 32px; font-weight: 700; color: var(--blue); letter-spacing: -0.03em; font-family: var(--mono); line-height: 1; }
+.stat-label { font-size: 10px; color: var(--text-3); margin-top: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
+.stat-divider { width: 1px; height: 36px; background: var(--border); }
 
 /* ─── SECTIONS COMMON ─── */
 section { padding: 100px 0; }
@@ -611,12 +611,12 @@ footer {
     <div class="stat-divider"></div>
     <div class="stat-item reveal reveal-delay-1">
       <div class="stat-value" data-target="60">0</div>
-      <div class="stat-label">개사 방산업체 납품</div>
+      <div class="stat-label">+ 방산업체 납품</div>
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item reveal reveal-delay-2">
       <div class="stat-value" data-target="600">0</div>
-      <div class="stat-label">+ 등록 정밀 파트</div>
+      <div class="stat-label">+ 방산부품 공급</div>
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item reveal reveal-delay-3">
@@ -627,7 +627,10 @@ footer {
 </div>
 
 <!-- ─── CLIENT LOGOS MARQUEE ─── -->
-<div style="background:rgba(255,255,255,0.6);border-top:1px solid rgba(0,80,160,0.08);border-bottom:1px solid rgba(0,80,160,0.08);padding:20px 0;overflow:hidden;position:relative;">
+<div style="background:rgba(255,255,255,0.6);border-top:1px solid rgba(0,80,160,0.08);border-bottom:1px solid rgba(0,80,160,0.08);padding:14px 0 16px;overflow:hidden;position:relative;">
+  <div style="text-align:center;margin-bottom:10px;">
+    <span style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;">주요 공급처 · Key Customers</span>
+  </div>
   <!-- fade edges -->
   <div style="position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(90deg,rgba(255,255,255,0.8),transparent);z-index:2;pointer-events:none;"></div>
   <div style="position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(270deg,rgba(255,255,255,0.8),transparent);z-index:2;pointer-events:none;"></div>
@@ -635,37 +638,37 @@ footer {
   <div style="display:flex;align-items:center;gap:0;" id="logo-marquee">
     <div class="marquee-track" style="display:flex;align-items:center;gap:0;animation:marquee 55s linear infinite;flex-shrink:0;">
       <div style="display:flex;align-items:center;gap:48px;padding:0 24px;">
-        <img src="uploads/LIGaccuver-clean.png" alt="LIG Accuver" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/gukdong-clean.png" alt="극동통신" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/duksan-clean.png" alt="DS Navcours" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/dongwon-clean.png" alt="동원정밀" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/samjung-clean.png" alt="Samjeong Automation" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/soldefense-clean.png" alt="SolDefense" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/youngpoong-clean.png" alt="영풍전자" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/onpoom-clean.png" alt="온품" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/wonwoo-clean.png" alt="WONWOO" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/wavice-clean.png" alt="WAVICE" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/intellics-clean.png" alt="intellics" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/hyundaisungwoo-clean.png" alt="HYUNDAI SUNGWOO SOLITE" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/danam-clean.png" alt="DANAM Systems" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
-        <img src="uploads/HAS-8ea99504-clean.png" alt="Hanwha Aerospace" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/LIGaccuver-clean.png" alt="LIG Accuver" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/gukdong-clean.png" alt="극동통신" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/duksan-clean.png" alt="DS Navcours" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/dongwon-clean.png" alt="동원정밀" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/samjung-clean.png" alt="Samjeong Automation" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/soldefense-clean.png" alt="SolDefense" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/youngpoong-clean.png" alt="영풍전자" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/onpoom-clean.png" alt="온품" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/wonwoo-clean.png" alt="WONWOO" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/wavice-clean.png" alt="WAVICE" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/intellics-clean.png" alt="intellics" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/hyundaisungwoo-clean.png" alt="HYUNDAI SUNGWOO SOLITE" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/danam-clean.png" alt="DANAM Systems" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
+        <img src="uploads/HAS-8ea99504-clean.png" alt="Hanwha Aerospace" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all 0.2s;" onmouseover="this.style.filter='grayscale(0%)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(30%)';this.style.opacity='0.85'">
       </div>
       <!-- duplicate for seamless loop -->
       <div style="display:flex;align-items:center;gap:48px;padding:0 24px;">
-        <img src="uploads/LIGaccuver-clean.png" alt="LIG Accuver" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/gukdong-clean.png" alt="극동통신" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/duksan-clean.png" alt="DS Navcours" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/dongwon-clean.png" alt="동원정밀" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/samjung-clean.png" alt="Samjeong Automation" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/soldefense-clean.png" alt="SolDefense" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/youngpoong-clean.png" alt="영풍전자" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/onpoom-clean.png" alt="온품" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/wonwoo-clean.png" alt="WONWOO" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/wavice-clean.png" alt="WAVICE" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/intellics-clean.png" alt="intellics" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/hyundaisungwoo-clean.png" alt="HYUNDAI SUNGWOO SOLITE" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/danam-clean.png" alt="DANAM Systems" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
-        <img src="uploads/HAS-8ea99504-clean.png" alt="Hanwha Aerospace" style="height:36px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/LIGaccuver-clean.png" alt="LIG Accuver" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/gukdong-clean.png" alt="극동통신" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/duksan-clean.png" alt="DS Navcours" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/dongwon-clean.png" alt="동원정밀" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/samjung-clean.png" alt="Samjeong Automation" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/soldefense-clean.png" alt="SolDefense" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/youngpoong-clean.png" alt="영풍전자" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/onpoom-clean.png" alt="온품" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/wonwoo-clean.png" alt="WONWOO" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/wavice-clean.png" alt="WAVICE" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/intellics-clean.png" alt="intellics" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/hyundaisungwoo-clean.png" alt="HYUNDAI SUNGWOO SOLITE" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/danam-clean.png" alt="DANAM Systems" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
+        <img src="uploads/HAS-8ea99504-clean.png" alt="Hanwha Aerospace" style="height:26px;width:auto;object-fit:contain;filter:grayscale(30%);opacity:0.85;">
       </div>
     </div>
   </div>
